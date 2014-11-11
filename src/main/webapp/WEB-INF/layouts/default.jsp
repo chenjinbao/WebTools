@@ -26,7 +26,6 @@
         </div>
 
         <%@ include file="/WEB-INF/layouts/footer.jsp"%>
-    </div>
-    <script src="<c:url value="/static/bootstrap/3.3.0/js/bootstrap.min.js" />" type="text/javascript"></script>
-</body>
+        <script src="<c:url value="/static/bootstrap/3.3.0/js/bootstrap.min.js" />" type="text/javascript"></script>
+    </body>
 </html>

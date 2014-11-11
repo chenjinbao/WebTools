@@ -13,7 +13,7 @@
         <script src="<c:url value="/static/jquery/jquery-1.11.1.min.js" />" type="text/javascript"></script>
         <script src="<c:url value="/static/jquery-validation/1.13.1/jquery.validate.min.js" />" type="text/javascript"></script>
         <script src="<c:url value="/static/jquery-validation/1.13.1/additional-methods.min.js" />" type="text/javascript"></script>
-        <script src="<c:url value="/static/jquery-validation/1.13.1/messages_zh.min.js" />" type="text/javascript"></script>
+        <script src="<c:url value="/static/jquery-validation/1.13.1/localization/messages_zh.min.js" />" type="text/javascript"></script>
     </head>
 
     <body>
