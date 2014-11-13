@@ -22,13 +22,13 @@
                     <div class="form-group">
                         <label for="boardFile" class="col-sm-2 control-label">物理设备定义</label>
                         <div class="col-sm-10">
-                            <input type="file" class="form-control required" id="boardFile" name="boardFile" accept="*.xls">
+                            <input type="file" class="form-control required" id="boardFile" name="boardFile" accept=".xls,.xlsx">
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="ruFile" class="col-sm-2 control-label">RU物理特性</label>
                         <div class="col-sm-10">
-                            <input type="file" class="form-control required" id="ruFile" name="ruFile" accept="*.xls">
+                            <input type="file" class="form-control required" id="ruFile" name="ruFile" accept=".xls,.xlsx">
                         </div>
                     </div>
                     <div class="form-group">
