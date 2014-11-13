@@ -39,10 +39,10 @@
                 </form>
             </div>
         </div>
-        <script>
+<!--        <script>
             $(document).ready(function () {
                 $("#ddmForm").validate();
             });
-        </script>
+        </script>-->
     </body>
 </html>
