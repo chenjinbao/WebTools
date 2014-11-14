@@ -14,7 +14,14 @@
         </c:if>
 
         <table id="contentTable" class="table table-striped table-bordered table-condensed">
-            <thead><tr><th>登录名</th><th>用户名</th><th>注册时间<th>管理</th></tr></thead>
+            <thead>
+                <tr>
+                    <th>登录名</th>
+                    <th>用户名</th>
+                    <th>注册时间</th>
+                    <th>管理</th>
+                </tr>
+            </thead>
             <tbody>
                 <c:forEach items="${users}" var="user">
                     <tr>

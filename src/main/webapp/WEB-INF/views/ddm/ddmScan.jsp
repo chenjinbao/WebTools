@@ -10,39 +10,48 @@
         <link href="<c:url value="/static/bootstrap/3.3.0/css/bootstrap.min.css" />" type="text/css" rel="stylesheet" />
         <link href="<c:url value="/static/styles/signin.css" />" type="text/css" rel="stylesheet" />
         <link href="<c:url value="/static/styles/sticky-footer-navbar.css" />" type="text/css" rel="stylesheet">
-        <script src="<c:url value="/static/jquery/jquery-1.11.1.min.js" />" type="text/javascript"></script>
-        <script src="<c:url value="/static/jquery-validation/1.13.1/jquery.validate.min.js" />" type="text/javascript"></script>
-        <script src="<c:url value="/static/jquery-validation/1.13.1/additional-methods.min.js" />" type="text/javascript"></script>
-        <script src="<c:url value="/static/jquery-validation/1.13.1/localization/messages_zh.min.js" />" type="text/javascript"></script>
+        <script src="<c:url value="/static/jquery/jquery-1.11.1.js" />" type="text/javascript"></script>
+        <script src="<c:url value="/static/jquery-validation/1.13.1/jquery.validate.js" />" type="text/javascript"></script>
+        <script src="<c:url value="/static/jquery-validation/1.13.1/additional-methods.js" />" type="text/javascript"></script>
+        <script src="<c:url value="/static/jquery-validation/1.13.1/localization/messages_zh.js" />" type="text/javascript"></script>
     </head>
     <body>
         <div class="row">
             <div class="col-md-8 col-md-offset-2">
                 <form id="ddmForm" class="form-horizontal" method="post"  action="<c:url value="/ddm" />" enctype="multipart/form-data" role="form">
                     <div class="form-group">
-                        <label for="boardFile" class="col-sm-2 control-label">物理设备定义</label>
-                        <div class="col-sm-10">
-                            <input type="file" class="form-control required" id="boardFile" name="boardFile" accept=".xls,.xlsx">
+                        <label for="boardFile" class="col-sm-2 col-sm-offset-2 control-label">物理设备定义</label>
+                        <div class="col-sm-6">
+                            <input type="file" class="form-control required" id="boardFile" name="boardFile" accept="application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" required>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="ruFile" class="col-sm-2 control-label">RU物理特性</label>
-                        <div class="col-sm-10">
-                            <input type="file" class="form-control required" id="ruFile" name="ruFile" accept=".xls,.xlsx">
+                        <label for="ruFile" class="col-sm-2 col-sm-offset-2 control-label">RU物理特性&nbsp;&nbsp;</label>
+                        <div class="col-sm-6">
+                            <input type="file" class="form-control required" id="ruFile" name="ruFile" accept="application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" required>
                         </div>
                     </div>
                     <div class="form-group">
-                        <div class="col-sm-offset-2 col-sm-10">
+                        <label for="sdrVer" class="col-sm-2 col-sm-offset-2 control-label">SDR平台版本</label>
+                        <div class="col-sm-6">
+                            <select class="form-control required" required id="sdrVer" name="sdrVer">
+                                <option value="2" selected>1.02.02.01</option>
+                                <option value="3">1.02.03.01</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-offset-2 col-sm-8">
                             <button type="submit" class="btn btn-lg btn-primary btn-block">扫描</button>
                         </div>
                     </div>
                 </form>
             </div>
         </div>
-<!--        <script>
+        <script>
             $(document).ready(function () {
                 $("#ddmForm").validate();
             });
-        </script>-->
+        </script>
     </body>
 </html>

@@ -10,10 +10,10 @@
         <link href="<c:url value="/static/bootstrap/3.3.0/css/bootstrap.min.css" />" type="text/css" rel="stylesheet" />
         <link href="<c:url value="/static/styles/signin.css" />" type="text/css" rel="stylesheet" />
         <link href="<c:url value="/static/styles/sticky-footer-navbar.css" />" type="text/css" rel="stylesheet">
-        <script src="<c:url value="/static/jquery/jquery-1.11.1.min.js" />" type="text/javascript"></script>
-        <script src="<c:url value="/static/jquery-validation/1.13.1/jquery.validate.min.js" />" type="text/javascript"></script>
-        <script src="<c:url value="/static/jquery-validation/1.13.1/additional-methods.min.js" />" type="text/javascript"></script>
-        <script src="<c:url value="/static/jquery-validation/1.13.1/localization/messages_zh.min.js" />" type="text/javascript"></script>
+        <script src="<c:url value="/static/jquery/jquery-1.11.1.js" />" type="text/javascript"></script>
+        <script src="<c:url value="/static/jquery-validation/1.13.1/jquery.validate.js" />" type="text/javascript"></script>
+        <script src="<c:url value="/static/jquery-validation/1.13.1/additional-methods.js" />" type="text/javascript"></script>
+        <script src="<c:url value="/static/jquery-validation/1.13.1/localization/messages_zh.js" />" type="text/javascript"></script>
     </head>
 
     <body>
