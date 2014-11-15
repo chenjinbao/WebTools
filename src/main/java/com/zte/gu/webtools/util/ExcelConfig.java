@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.zte.gu.webtools.service.ddm.util;
+package com.zte.gu.webtools.util;
 
 import com.zte.gu.webtools.entity.DdmAction;
 import com.zte.gu.webtools.entity.DdmBoard;
@@ -12,8 +12,6 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  *

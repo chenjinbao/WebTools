@@ -17,29 +17,29 @@
     </head>
     <body>
         <div class="row">
-            <div class="col-md-6 col-md-offset-3">
+            <div class="col-md-8 col-md-offset-2">
                 <form id="ddmForm" class="form-horizontal" method="post"  action="<c:url value="/ddm" />" enctype="multipart/form-data" role="form">
                     <c:if test="${error != null}" >
-                        <div class="alert alert-danger alert-dismissible" role="alert">
+                        <div class="col-sm-8 col-sm-offset-2 alert alert-danger alert-dismissible" role="alert">
                             <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
                             ${error}
                         </div>
                     </c:if>
                     <div class="form-group">
-                        <label for="boardFile" class="col-sm-3 control-label">物理设备定义</label>
-                        <div class="col-sm-9">
+                        <label for="boardFile" class="col-sm-2 col-sm-offset-2 control-label">物理设备定义</label>
+                        <div class="col-sm-6">
                             <input type="file" class="form-control required" id="boardFile" name="boardFile" accept="application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" required>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="ruFile" class="col-sm-3 control-label">RU物理特性&nbsp;&nbsp;</label>
-                        <div class="col-sm-9">
+                        <label for="ruFile" class="col-sm-2 col-sm-offset-2 control-label">RU物理特性&nbsp;&nbsp;</label>
+                        <div class="col-sm-6">
                             <input type="file" class="form-control required" id="ruFile" name="ruFile" accept="application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" required>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="sdrVer" class="col-sm-3 control-label">SDR平台版本</label>
-                        <div class="col-sm-9">
+                        <label for="sdrVer" class="col-sm-2 col-sm-offset-2 control-label">SDR平台版本</label>
+                        <div class="col-sm-6">
                             <select class="form-control required" required id="sdrVer" name="sdrVer">
                                 <c:forEach items="${versions}" var="version">
                                     <option value="${version.version}">${version.display}</option>
@@ -48,7 +48,7 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <div class="controls">
+                        <div class="col-sm-offset-2 col-sm-8">
                             <button type="submit" class="btn btn-lg btn-primary btn-block">扫描</button>
                         </div>
                     </div>

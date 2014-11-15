@@ -1,7 +1,7 @@
-package com.zte.gu.webtools.service.ddm.excel;
+package com.zte.gu.webtools.excel;
 
-import com.zte.gu.webtools.service.ddm.util.ExcelConfig;
-import com.zte.gu.webtools.service.ddm.util.ExcelFieldUtil;
+import com.zte.gu.webtools.util.ExcelConfig;
+import com.zte.gu.webtools.util.ExcelFieldUtil;
 import java.io.InputStream;
 import java.util.LinkedHashMap;
 import java.util.Map;

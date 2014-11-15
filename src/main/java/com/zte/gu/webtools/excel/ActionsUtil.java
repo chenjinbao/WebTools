@@ -1,7 +1,7 @@
-package com.zte.gu.webtools.service.ddm.excel;
+package com.zte.gu.webtools.excel;
 
 import com.google.common.io.Files;
-import com.zte.gu.webtools.service.ddm.util.ExcelConfig;
+import com.zte.gu.webtools.util.ExcelConfig;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.lang.reflect.InvocationTargetException;

@@ -1,6 +1,6 @@
-package com.zte.gu.webtools.service.ddm.excel;
+package com.zte.gu.webtools.excel;
 
-import com.zte.gu.webtools.service.ddm.util.ExcelFieldUtil;
+import com.zte.gu.webtools.util.ExcelFieldUtil;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
