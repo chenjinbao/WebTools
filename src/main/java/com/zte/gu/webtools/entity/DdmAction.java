@@ -8,12 +8,9 @@ package com.zte.gu.webtools.entity;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
@@ -21,13 +18,6 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @Entity
 @Table(name = "t_ddm_action")
-@XmlRootElement
-@NamedQueries({
-    @NamedQuery(name = "DdmAction.findAll", query = "SELECT d FROM DdmAction d"),
-    @NamedQuery(name = "DdmAction.findById", query = "SELECT d FROM DdmAction d WHERE d.id = :id"),
-    @NamedQuery(name = "DdmAction.findByVersion", query = "SELECT d FROM DdmAction d WHERE d.version = :version"),
-    @NamedQuery(name = "DdmAction.findByActionType", query = "SELECT d FROM DdmAction d WHERE d.actionType = :actionType"),
-    @NamedQuery(name = "DdmAction.findByFieldName", query = "SELECT d FROM DdmAction d WHERE d.fieldName = :fieldName")})
 public class DdmAction extends IdEntity {
     private static final long serialVersionUID = 1L;
 

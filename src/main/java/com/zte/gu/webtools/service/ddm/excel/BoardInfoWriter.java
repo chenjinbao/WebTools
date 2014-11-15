@@ -1,6 +1,7 @@
 package com.zte.gu.webtools.service.ddm.excel;
 
 import com.google.common.io.Files;
+import com.zte.gu.webtools.service.ddm.util.ExcelConfig;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
@@ -23,10 +24,10 @@ public class BoardInfoWriter {
     private static final List<String> RADIOS = Arrays.asList("gsm", "umts");
     private static final String OUTPUT_FILE = "product-{0}-ddm-satisfy-boards-conf.xml";
     
-    public static File write(InputStream boardInputStream, InputStream rruInputStream, String sdrVersion) {
+    public static File write(InputStream boardInputStream, InputStream rruInputStream, ExcelConfig config) {
         try {
-            Map<String, BoardInfo> boardMap = BoardInfoReader.readBoardInfo(boardInputStream, sdrVersion);
-            Map<String, BoardInfo> rrudMap = BoardInfoReader.readRruBoardInfo(rruInputStream, sdrVersion);
+            Map<String, BoardInfo> boardMap = BoardInfoReader.readBoardInfo(boardInputStream, config);
+            Map<String, BoardInfo> rrudMap = BoardInfoReader.readRruBoardInfo(rruInputStream, config);
             Map<String, List<BoardInfo>> boardInfoMap = new HashMap<String, List<BoardInfo>>();
             // List<BoardInfo> gsmBoardInfos = new ArrayList<BoardInfo>();
             // List<BoardInfo> umtsBoardInfos = new ArrayList<BoardInfo>();
@@ -70,7 +71,7 @@ public class BoardInfoWriter {
             
             List<File> xmlFiles = new ArrayList<File>();
             for (String radio : RADIOS) {
-                Actions actions = ActionsUtil.createActions(boardInfoMap.get(radio), sdrVersion);
+                Actions actions = ActionsUtil.createActions(boardInfoMap.get(radio), config);
                 File file = ActionsUtil.outputXml(actions, MessageFormat.format(OUTPUT_FILE, radio));
                 xmlFiles.add(file);
             }

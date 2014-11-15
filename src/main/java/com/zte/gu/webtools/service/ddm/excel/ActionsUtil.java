@@ -12,7 +12,6 @@ import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Marshaller;
 
 import org.apache.commons.beanutils.BeanUtils;
-import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,14 +24,14 @@ public class ActionsUtil {
      * 生成Actions列表
      *
      * @param boardInfos
-     * @param sdrVer
+     * @param config
      * @return
      * @throws Exception
      * @throws InvocationTargetException
      * @throws IllegalAccessException
      */
-    public static Actions createActions(List<BoardInfo> boardInfos, String sdrVer) throws Exception {
-        Map<String, String> typeFields = ExcelConfig.getInstance(sdrVer).getActionFields();
+    public static Actions createActions(List<BoardInfo> boardInfos, ExcelConfig config) throws Exception {
+        Map<String, String> typeFields = config.getActionFields();
 
         Actions actions = new Actions();
 
@@ -58,7 +57,7 @@ public class ActionsUtil {
      *
      * @param actions
      * @param fileName
-     * @param path
+     * @return 
      * @throws java.lang.Exception
      */
     public static File outputXml(Actions actions, String fileName) throws Exception {

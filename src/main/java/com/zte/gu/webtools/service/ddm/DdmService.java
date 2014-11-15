@@ -5,9 +5,16 @@
  */
 package com.zte.gu.webtools.service.ddm;
 
+import com.zte.gu.webtools.entity.DdmAction;
+import com.zte.gu.webtools.entity.DdmBoard;
+import com.zte.gu.webtools.entity.DdmRru;
 import com.zte.gu.webtools.entity.DdmVersion;
+import com.zte.gu.webtools.repository.DdmActionDao;
+import com.zte.gu.webtools.repository.DdmBoardDao;
+import com.zte.gu.webtools.repository.DdmRruDao;
 import com.zte.gu.webtools.repository.DdmVersionDao;
 import com.zte.gu.webtools.service.ddm.excel.BoardInfoWriter;
+import com.zte.gu.webtools.service.ddm.util.ExcelConfig;
 import java.io.File;
 import java.io.InputStream;
 import java.util.List;
@@ -24,21 +31,44 @@ import org.springframework.transaction.annotation.Transactional;
 // 类中所有public函数都纳入事务管理的标识.
 @Transactional
 public class DdmService {
-    
+
     private DdmVersionDao ddmVersionDao;
-    
+    private DdmBoardDao ddmBoardDao;
+    private DdmRruDao ddmRruDao;
+    private DdmActionDao ddmActionDao;
+
     public List<DdmVersion> getAllVersion() {
         return (List<DdmVersion>) ddmVersionDao.findAll();
     }
 
     public File exportXml(InputStream boardInputStream, InputStream ruInputStream, String sdrVer) {
-        File zipFile = BoardInfoWriter.write(boardInputStream, ruInputStream, sdrVer);
+        List<DdmBoard> ddmBoards = (List<DdmBoard>) ddmBoardDao.findByVersion(sdrVer);
+        List<DdmRru> ddmRrus = (List<DdmRru>) ddmRruDao.findByVersion(sdrVer);
+        List<DdmAction> ddmActions = (List<DdmAction>) ddmActionDao.findByVersion(sdrVer);
+        ExcelConfig config = ExcelConfig.createConfig(ddmBoards, ddmRrus, ddmActions);
+
+        File zipFile = BoardInfoWriter.write(boardInputStream, ruInputStream, config);
         return zipFile;
     }
 
     @Autowired
     public void setDdmVersionDao(DdmVersionDao ddmVersionDao) {
         this.ddmVersionDao = ddmVersionDao;
+    }
+
+    @Autowired
+    public void setDdmBoardDao(DdmBoardDao ddmBoardDao) {
+        this.ddmBoardDao = ddmBoardDao;
+    }
+
+    @Autowired
+    public void setDdmRruDao(DdmRruDao ddmRruDao) {
+        this.ddmRruDao = ddmRruDao;
+    }
+
+    @Autowired
+    public void setDdmActionDao(DdmActionDao ddmActionDao) {
+        this.ddmActionDao = ddmActionDao;
     }
 
 }

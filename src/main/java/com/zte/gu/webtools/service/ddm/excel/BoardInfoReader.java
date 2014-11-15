@@ -24,16 +24,17 @@ public class BoardInfoReader {
     /**
      * 从物理设备定义文档读取内容
      *
-     * @param boardFile
+     * @param inputStream
+     * @param config
      * @return
      */
-    public static Map<String, BoardInfo> readBoardInfo(InputStream inputStream, String sdrVer) {
+    public static Map<String, BoardInfo> readBoardInfo(InputStream inputStream, ExcelConfig config) {
         Map<String, BoardInfo> map = new LinkedHashMap<String, BoardInfo>();
         try {
             Workbook workbook = WorkbookFactory.create(inputStream);
             Sheet sheet = workbook.getSheet("Board");
 
-            Map<String, Integer> indexMap = ExcelFieldUtil.getCellTitleIndex(sheet, ExcelConfig.getInstance(sdrVer).getBoardFilelds());
+            Map<String, Integer> indexMap = ExcelFieldUtil.getCellTitleIndex(sheet, config.getBoardFilelds());
 
             for (int i = 3; i <= sheet.getLastRowNum(); i++) {
                 Row row = sheet.getRow(i);
@@ -63,16 +64,17 @@ public class BoardInfoReader {
     /**
      * 从RRU文档读取内容
      *
-     * @param rruFile
+     * @param inputStream
+     * @param config
      * @return
      */
-    public static Map<String, BoardInfo> readRruBoardInfo(InputStream inputStream, String sdrVer) {
+    public static Map<String, BoardInfo> readRruBoardInfo(InputStream inputStream, ExcelConfig config) {
         Map<String, BoardInfo> map = new LinkedHashMap<String, BoardInfo>();
         try {
             Workbook workbook = WorkbookFactory.create(inputStream);
             Sheet sheet = workbook.getSheet("动态管理");
 
-            Map<String, Integer> indexMap = ExcelFieldUtil.getCellTitleIndex(sheet, ExcelConfig.getInstance(sdrVer).getRuFilelds());
+            Map<String, Integer> indexMap = ExcelFieldUtil.getCellTitleIndex(sheet, config.getRuFilelds());
 
             for (int i = 3; i <= sheet.getLastRowNum(); i++) {
                 Row row = sheet.getRow(i);

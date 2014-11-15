@@ -7,11 +7,8 @@ package com.zte.gu.webtools.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
-import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
@@ -19,12 +16,6 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @Entity
 @Table(name = "t_ddm_version")
-@XmlRootElement
-@NamedQueries({
-    @NamedQuery(name = "DdmVersion.findAll", query = "SELECT d FROM DdmVersion d"),
-    @NamedQuery(name = "DdmVersion.findById", query = "SELECT d FROM DdmVersion d WHERE d.id = :id"),
-    @NamedQuery(name = "DdmVersion.findByVersion", query = "SELECT d FROM DdmVersion d WHERE d.version = :version"),
-    @NamedQuery(name = "DdmVersion.findByDisplay", query = "SELECT d FROM DdmVersion d WHERE d.display = :display")})
 public class DdmVersion extends IdEntity {
     private static final long serialVersionUID = 1L;
 

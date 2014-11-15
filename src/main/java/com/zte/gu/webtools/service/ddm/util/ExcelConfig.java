@@ -5,74 +5,52 @@
  */
 package com.zte.gu.webtools.service.ddm.util;
 
-import java.io.File;
+import com.zte.gu.webtools.entity.DdmAction;
+import com.zte.gu.webtools.entity.DdmBoard;
+import com.zte.gu.webtools.entity.DdmRru;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import org.dom4j.Document;
-import org.dom4j.Element;
-import org.dom4j.io.SAXReader;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.core.io.DefaultResourceLoader;
-import org.springframework.core.io.Resource;
-import org.springframework.core.io.ResourceLoader;
-import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
-import org.springframework.util.ResourceUtils;
 
 /**
  *
  * @author 10115701
  */
 public class ExcelConfig {
-    
-    private static final Logger LOG = LoggerFactory.getLogger(ExcelConfig.class);
-    private static final Map<String, ExcelConfig> INSTANCES = new HashMap<String, ExcelConfig>();
-    
-    public static synchronized ExcelConfig getInstance(String sdrVer) {
-        if (!INSTANCES.containsKey(sdrVer)) {
-            INSTANCES.put(sdrVer, new ExcelConfig(sdrVer));
+
+    public static ExcelConfig createConfig(List<DdmBoard> ddmBoards, List<DdmRru> ddmRrus, List<DdmAction> ddmActions) {
+        ExcelConfig config = new ExcelConfig();
+        Map<String, String> boardFields = new HashMap<String, String>();
+        for (DdmBoard ddmBoard : ddmBoards) {
+            boardFields.put(ddmBoard.getColumnName(), ddmBoard.getFieldName());
         }
-        return INSTANCES.get(sdrVer);
+
+        Map<String, String> ruFields = new HashMap<String, String>();
+        for (DdmRru ddmRru : ddmRrus) {
+            ruFields.put(ddmRru.getColumnName(), ddmRru.getFieldName());
+        }
+
+        Map<String, String> actionFields = new HashMap<String, String>();
+        for (DdmAction ddmAction : ddmActions) {
+            actionFields.put(ddmAction.getActionType(), ddmAction.getFieldName());
+        }
+        
+        config.getBoardFilelds().putAll(boardFields);
+        config.getRuFilelds().putAll(ruFields);
+        config.getActionFields().putAll(actionFields);
+        
+        return config;
     }
-    
+
     private final Map<String, String> ruFilelds = new HashMap<String, String>();
     private final Map<String, String> boardFilelds = new HashMap<String, String>();
     private final Map<String, String> actionFields = new LinkedHashMap<String, String>();
-    
-    private ExcelConfig(String sdrVer) {
-        loadXmlByVersion(sdrVer);
-    }
-    
-    private void loadXmlByVersion(String sdrVer) {
-        try {
-            ResourceLoader loader = new DefaultResourceLoader();  
-            Resource resource = loader.getResource("classpath*:/ddm/version" + sdrVer + "/ddmscan.xml");
-            SAXReader saxReader = new SAXReader();
-            Document doc = saxReader.read(resource.getInputStream());
-            Element root = doc.getRootElement();
-            
-            Element ruElement = root.element("RuExcelFileds");
-            List<Element> ruColumnElements = ruElement.elements();
-            for (Element columnElement : ruColumnElements) {
-                getRuFilelds().put(columnElement.attributeValue("name").trim(), columnElement.attributeValue("field").trim());
-            }
-            
-            Element boardElement = root.element("BoardExcelFields");
-            List<Element> boardColumnElements = boardElement.elements();
-            for (Element columnElement : boardColumnElements) {
-                getBoardFilelds().put(columnElement.attributeValue("name").trim(), columnElement.attributeValue("field").trim());
-            }
-            
-            Element actionElement = root.element("ActionFields");
-            List<Element> actionFieldElements = actionElement.elements();
-            for (Element actionFieldElement : actionFieldElements) {
-                getActionFields().put(actionFieldElement.attributeValue("name").trim(), actionFieldElement.attributeValue("field").trim());
-            }
-        } catch (Exception e) {
-            LOG.warn("read xml error,", e);
-        }
+
+    private ExcelConfig() {
+
     }
 
     /**
@@ -95,5 +73,5 @@ public class ExcelConfig {
     public Map<String, String> getActionFields() {
         return actionFields;
     }
-    
+
 }

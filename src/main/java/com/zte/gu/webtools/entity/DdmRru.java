@@ -8,12 +8,9 @@ package com.zte.gu.webtools.entity;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
@@ -21,13 +18,6 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @Entity
 @Table(name = "t_ddm_rru")
-@XmlRootElement
-@NamedQueries({
-    @NamedQuery(name = "DdmRru.findAll", query = "SELECT d FROM DdmRru d"),
-    @NamedQuery(name = "DdmRru.findById", query = "SELECT d FROM DdmRru d WHERE d.id = :id"),
-    @NamedQuery(name = "DdmRru.findByVersion", query = "SELECT d FROM DdmRru d WHERE d.version = :version"),
-    @NamedQuery(name = "DdmRru.findByColumnName", query = "SELECT d FROM DdmRru d WHERE d.columnName = :columnName"),
-    @NamedQuery(name = "DdmRru.findByFieldName", query = "SELECT d FROM DdmRru d WHERE d.fieldName = :fieldName")})
 public class DdmRru extends IdEntity {
     private static final long serialVersionUID = 1L;
 
@@ -43,7 +33,7 @@ public class DdmRru extends IdEntity {
     private String columnName;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 255)
+    @Size(min = 1, max = 50)
     @Column(name = "field_name")
     private String fieldName;
 

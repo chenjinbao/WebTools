@@ -8,12 +8,12 @@ package com.zte.gu.webtools.web.ddm;
 import com.zte.gu.webtools.entity.DdmVersion;
 import com.zte.gu.webtools.service.ddm.DdmService;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.Arrays;
 import java.util.List;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import org.apache.commons.io.IOUtils;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,7 +46,7 @@ public class DdmController {
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public ModelAndView scan(@RequestParam(required = true) MultipartFile boardFile, @RequestParam(required = true) MultipartFile ruFile, @RequestParam(required = true) String sdrVer, HttpServletResponse response) {
+    public ModelAndView scan(@RequestParam(required = true) MultipartFile boardFile, @RequestParam(required = true) MultipartFile ruFile, @RequestParam(required = true) String sdrVer, HttpSession session) {
         ModelAndView modelAndView = new ModelAndView("ddm/ddmScan");
         if (boardFile.isEmpty()) {
             modelAndView.getModelMap().addAttribute("error", "请上传物理设备定义文档。");
@@ -61,24 +61,20 @@ public class DdmController {
             modelAndView.getModelMap().addAttribute("error", "RU物理特性文档格式不正确。");
         }
 
-        response.setHeader("Content-Disposition", "attachment; filename=\"ddm.zip");
-        response.setContentType("application/octet-stream; charset=UTF-8");
-
-        InputStream in = null;
-        OutputStream out = null;
         InputStream boardInput = null;
         InputStream ruInput = null;
         try {
             boardInput = boardFile.getInputStream();
             ruInput = ruFile.getInputStream();
-            File tempZipFile = ddmService.exportXml(boardInput, ruInput, sdrVer);  //将输出流传递到方法  
-            in = new FileInputStream(tempZipFile);
-            IOUtils.copy(in, response.getOutputStream());
+            File tempZipFile = ddmService.exportXml(boardInput, ruInput, sdrVer);  //将输出流传递到方法
+            if (tempZipFile != null) {
+                session.setAttribute("filePath", tempZipFile.getPath());
+                modelAndView.setViewName("redirect:/download");
+            }
         } catch (Exception e) {
             LoggerFactory.getLogger(DdmController.class).warn("download error,", e);
+            modelAndView.getModelMap().addAttribute("error", "生成文件失败。");
         } finally {
-            IOUtils.closeQuietly(out);
-            IOUtils.closeQuietly(in);
             IOUtils.closeQuietly(boardInput);
             IOUtils.closeQuietly(ruInput);
         }

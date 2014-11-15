@@ -6,7 +6,6 @@
 package com.zte.gu.webtools.repository;
 
 import com.zte.gu.webtools.entity.DdmRru;
-import java.util.List;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
 /**
@@ -15,5 +14,5 @@ import org.springframework.data.repository.PagingAndSortingRepository;
  */
 public interface DdmRruDao extends PagingAndSortingRepository<DdmRru, Long> {
 
-    List<DdmRru> findByVersion(String version);
+    Iterable<DdmRru> findByVersion(String version);
 }

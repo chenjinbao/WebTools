@@ -6,7 +6,6 @@
 package com.zte.gu.webtools.repository;
 
 import com.zte.gu.webtools.entity.DdmBoard;
-import java.util.List;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
 /**
@@ -15,5 +14,5 @@ import org.springframework.data.repository.PagingAndSortingRepository;
  */
 public interface DdmBoardDao extends PagingAndSortingRepository<DdmBoard, Long> {
 
-    List<DdmBoard> findByVersion(String version);
+    Iterable<DdmBoard> findByVersion(String version);
 }
