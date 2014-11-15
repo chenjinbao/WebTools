@@ -29,7 +29,8 @@
                 /api/** = anon
                 /register/** = anon
                 /admin/** = roles[admin]
-                /** = user
+                /druid/* = roles[admin]
+                /** = user                
             </value>
         </property>
     </bean>
