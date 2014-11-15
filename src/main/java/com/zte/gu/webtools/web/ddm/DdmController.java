@@ -5,6 +5,7 @@
  */
 package com.zte.gu.webtools.web.ddm;
 
+import com.zte.gu.webtools.entity.DdmVersion;
 import com.zte.gu.webtools.service.ddm.DdmService;
 import java.io.File;
 import java.io.FileInputStream;
@@ -31,17 +32,19 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 @RequestMapping(value = "/ddm")
 public class DdmController {
-    
+
     private static final List<String> ACCEPT_TYPES = Arrays.asList("application/vnd.ms-excel", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
-    
+
     @Autowired
     private DdmService ddmService;
-    
+
     @RequestMapping(method = RequestMethod.GET)
     public String show(Model model) {
+        List<DdmVersion> versions = ddmService.getAllVersion();
+        model.addAttribute("versions", versions);
         return "ddm/ddmScan";
     }
-    
+
     @RequestMapping(method = RequestMethod.POST)
     public ModelAndView scan(@RequestParam(required = true) MultipartFile boardFile, @RequestParam(required = true) MultipartFile ruFile, @RequestParam(required = true) String sdrVer, HttpServletResponse response) {
         ModelAndView modelAndView = new ModelAndView("ddm/ddmScan");
@@ -57,14 +60,18 @@ public class DdmController {
         if (!ACCEPT_TYPES.contains(ruFile.getContentType())) {
             modelAndView.getModelMap().addAttribute("error", "RU物理特性文档格式不正确。");
         }
-        
+
         response.setHeader("Content-Disposition", "attachment; filename=\"ddm.zip");
         response.setContentType("application/octet-stream; charset=UTF-8");
-        File tempZipFile = ddmService.exportXml(boardFile, ruFile, sdrVer);  //将输出流传递到方法  
 
         InputStream in = null;
         OutputStream out = null;
+        InputStream boardInput = null;
+        InputStream ruInput = null;
         try {
+            boardInput = boardFile.getInputStream();
+            ruInput = ruFile.getInputStream();
+            File tempZipFile = ddmService.exportXml(boardInput, ruInput, sdrVer);  //将输出流传递到方法  
             in = new FileInputStream(tempZipFile);
             IOUtils.copy(in, response.getOutputStream());
         } catch (Exception e) {
@@ -72,8 +79,10 @@ public class DdmController {
         } finally {
             IOUtils.closeQuietly(out);
             IOUtils.closeQuietly(in);
+            IOUtils.closeQuietly(boardInput);
+            IOUtils.closeQuietly(ruInput);
         }
         return modelAndView;
     }
-    
+
 }

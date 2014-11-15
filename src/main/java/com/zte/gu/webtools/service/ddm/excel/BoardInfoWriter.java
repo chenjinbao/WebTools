@@ -1,26 +1,32 @@
 package com.zte.gu.webtools.service.ddm.excel;
 
+import com.google.common.io.Files;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.InputStream;
 import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import org.apache.commons.io.IOUtils;
+import org.apache.tools.zip.ZipEntry;
+import org.apache.tools.zip.ZipOutputStream;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class BoardInfoWriter {
-
+    
     private static final Logger LOG = LoggerFactory.getLogger(BoardInfoWriter.class);
-
+    
     private static final List<String> RADIOS = Arrays.asList("gsm", "umts");
     private static final String OUTPUT_FILE = "product-{0}-ddm-satisfy-boards-conf.xml";
-
-    public static boolean write(File boardFile, File rruFile, String savePath) {
+    
+    public static File write(InputStream boardInputStream, InputStream rruInputStream, String sdrVersion) {
         try {
-            Map<String, BoardInfo> boardMap = BoardInfoReader.readBoardInfo(boardFile);
-            Map<String, BoardInfo> rrudMap = BoardInfoReader.readRruBoardInfo(rruFile);
+            Map<String, BoardInfo> boardMap = BoardInfoReader.readBoardInfo(boardInputStream, sdrVersion);
+            Map<String, BoardInfo> rrudMap = BoardInfoReader.readRruBoardInfo(rruInputStream, sdrVersion);
             Map<String, List<BoardInfo>> boardInfoMap = new HashMap<String, List<BoardInfo>>();
             // List<BoardInfo> gsmBoardInfos = new ArrayList<BoardInfo>();
             // List<BoardInfo> umtsBoardInfos = new ArrayList<BoardInfo>();
@@ -61,12 +67,14 @@ public class BoardInfoWriter {
                     }
                 }
             }
-
+            
+            List<File> xmlFiles = new ArrayList<File>();
             for (String radio : RADIOS) {
-                Actions actions = ActionsUtil.createActions(boardInfoMap.get(radio));
-                ActionsUtil.outputXml(actions, MessageFormat.format(OUTPUT_FILE, radio), savePath);
+                Actions actions = ActionsUtil.createActions(boardInfoMap.get(radio), sdrVersion);
+                File file = ActionsUtil.outputXml(actions, MessageFormat.format(OUTPUT_FILE, radio));
+                xmlFiles.add(file);
             }
-            return true;
+            return zipXml(xmlFiles);
         } catch (Exception e) {
             LOG.warn("解析并生成XML文件出错，", e);
             throw new RuntimeException(e.getMessage());
@@ -88,5 +96,30 @@ public class BoardInfoWriter {
         }
         boardInfos.add(boardInfo);
     }
-
+    
+    private static File zipXml(List<File> xmlFiles) {
+        ZipOutputStream zipOutputStream = null;
+        InputStream in = null;
+        try {
+            File tempFile = File.createTempFile("ddm", ".zip", Files.createTempDir());
+            zipOutputStream = new ZipOutputStream(tempFile);
+            for (File xmlFile : xmlFiles) {
+                try {
+                    in = new FileInputStream(xmlFile);
+                    ZipEntry entry = new ZipEntry(xmlFile.getName());
+                    zipOutputStream.putNextEntry(entry);
+                    IOUtils.copy(in, zipOutputStream);
+                } finally {
+                    IOUtils.closeQuietly(in);
+                }
+            }
+            return tempFile;
+        } catch (Exception e) {
+            LOG.warn("压缩XML文件出错，", e);
+            throw new RuntimeException(e.getMessage());
+        } finally {
+            IOUtils.closeQuietly(zipOutputStream);
+        }
+    }
+    
 }

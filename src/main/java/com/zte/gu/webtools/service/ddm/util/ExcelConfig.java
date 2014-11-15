@@ -15,6 +15,10 @@ import org.dom4j.Element;
 import org.dom4j.io.SAXReader;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.core.io.DefaultResourceLoader;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.ResourceLoader;
+import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.util.ResourceUtils;
 
 /**
@@ -24,28 +28,29 @@ import org.springframework.util.ResourceUtils;
 public class ExcelConfig {
     
     private static final Logger LOG = LoggerFactory.getLogger(ExcelConfig.class);
-    private static final Map<Integer, ExcelConfig> INSTANCES = new HashMap<Integer, ExcelConfig>();
+    private static final Map<String, ExcelConfig> INSTANCES = new HashMap<String, ExcelConfig>();
     
-    public static synchronized ExcelConfig getInstance(Integer version) {
-        if (!INSTANCES.containsKey(version)) {
-            INSTANCES.put(version, new ExcelConfig(version));
+    public static synchronized ExcelConfig getInstance(String sdrVer) {
+        if (!INSTANCES.containsKey(sdrVer)) {
+            INSTANCES.put(sdrVer, new ExcelConfig(sdrVer));
         }
-        return INSTANCES.get(version);
+        return INSTANCES.get(sdrVer);
     }
     
     private final Map<String, String> ruFilelds = new HashMap<String, String>();
     private final Map<String, String> boardFilelds = new HashMap<String, String>();
     private final Map<String, String> actionFields = new LinkedHashMap<String, String>();
     
-    private ExcelConfig(Integer version) {
-        loadXmlByVersion(version);
+    private ExcelConfig(String sdrVer) {
+        loadXmlByVersion(sdrVer);
     }
     
-    private void loadXmlByVersion(Integer version) {
+    private void loadXmlByVersion(String sdrVer) {
         try {
-            File file = ResourceUtils.getFile("classpath:/ddm/version" + version + "/ddmscan.xml");
+            ResourceLoader loader = new DefaultResourceLoader();  
+            Resource resource = loader.getResource("classpath*:/ddm/version" + sdrVer + "/ddmscan.xml");
             SAXReader saxReader = new SAXReader();
-            Document doc = saxReader.read(file);
+            Document doc = saxReader.read(resource.getInputStream());
             Element root = doc.getRootElement();
             
             Element ruElement = root.element("RuExcelFileds");

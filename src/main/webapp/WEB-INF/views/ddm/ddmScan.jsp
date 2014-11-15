@@ -35,8 +35,9 @@
                         <label for="sdrVer" class="col-sm-2 col-sm-offset-2 control-label">SDR平台版本</label>
                         <div class="col-sm-6">
                             <select class="form-control required" required id="sdrVer" name="sdrVer">
-                                <option value="2" selected>1.02.02.01</option>
-                                <option value="3">1.02.03.01</option>
+                                <c:forEach items="${versions}" var="version">
+                                    <option value="${version.version}">${version.display}</option>
+                                </c:forEach>
                             </select>
                         </div>
                     </div>
