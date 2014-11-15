@@ -17,12 +17,13 @@ import org.apache.poi.ss.usermodel.WorkbookFactory;
 import org.slf4j.Logger;
 
 import org.slf4j.LoggerFactory;
+import org.springframework.util.Assert;
 import org.springside.modules.utils.Reflections;
 
 public class RfaInfoReader {
 
     private static final Logger LOG = LoggerFactory.getLogger(RfaInfoReader.class);
-    private static final String[][]          RFA_FIELDS         = new String[][] { { "boardId", "单板编号" }, { "freqScan", "干扰分析" } };
+    private static final String[][] RFA_FIELDS = new String[][]{{"boardId", "单板编号"}, {"freqScan", "干扰分析"}};
 
     private static final Map<String, String> RFA_TITLE_TO_FIELD = new HashMap<String, String>();
 
@@ -39,10 +40,11 @@ public class RfaInfoReader {
             inputStream = new FileInputStream(rruFile);
             Workbook workbook = WorkbookFactory.create(inputStream);
             Sheet sheet = workbook.getSheet("射频分析");
-            if(sheet == null) {
+            if (sheet == null) {
                 sheet = workbook.getSheet("射频分析模块");
             }
-
+            Assert.notNull(sheet, "RU物理特性文档中没有'射频分析'这个sheet。");
+            
             Map<String, Integer> indexMap = ExcelFieldUtil.getCellTitleIndex(sheet, RFA_TITLE_TO_FIELD);
 
             for (int i = 3; i <= sheet.getLastRowNum(); i++) {

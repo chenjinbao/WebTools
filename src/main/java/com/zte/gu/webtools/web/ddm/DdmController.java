@@ -9,10 +9,8 @@ import com.zte.gu.webtools.entity.DdmVersion;
 import com.zte.gu.webtools.service.ddm.DdmService;
 import java.io.File;
 import java.io.InputStream;
-import java.io.OutputStream;
 import java.util.Arrays;
 import java.util.List;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import org.apache.commons.io.IOUtils;
 import org.slf4j.LoggerFactory;
@@ -47,7 +45,9 @@ public class DdmController {
 
     @RequestMapping(method = RequestMethod.POST)
     public ModelAndView scan(@RequestParam(required = true) MultipartFile boardFile, @RequestParam(required = true) MultipartFile ruFile, @RequestParam(required = true) String sdrVer, HttpSession session) {
+        List<DdmVersion> versions = ddmService.getAllVersion();
         ModelAndView modelAndView = new ModelAndView("ddm/ddmScan");
+        modelAndView.getModelMap().addAttribute("versions", versions);
         if (boardFile.isEmpty()) {
             modelAndView.getModelMap().addAttribute("error", "请上传物理设备定义文档。");
         }
@@ -73,7 +73,7 @@ public class DdmController {
             }
         } catch (Exception e) {
             LoggerFactory.getLogger(DdmController.class).warn("download error,", e);
-            modelAndView.getModelMap().addAttribute("error", "生成文件失败。");
+            modelAndView.getModelMap().addAttribute("error", "生成文件失败，" + e.getMessage());
         } finally {
             IOUtils.closeQuietly(boardInput);
             IOUtils.closeQuietly(ruInput);

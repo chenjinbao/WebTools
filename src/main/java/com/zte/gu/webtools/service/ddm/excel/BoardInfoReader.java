@@ -15,6 +15,7 @@ import org.apache.poi.ss.usermodel.WorkbookFactory;
 import org.slf4j.Logger;
 
 import org.slf4j.LoggerFactory;
+import org.springframework.util.Assert;
 import org.springside.modules.utils.Reflections;
 
 public class BoardInfoReader {
@@ -33,7 +34,7 @@ public class BoardInfoReader {
         try {
             Workbook workbook = WorkbookFactory.create(inputStream);
             Sheet sheet = workbook.getSheet("Board");
-
+            Assert.notNull(sheet, "物理设备定义文档中没有'Board'这个sheet。");
             Map<String, Integer> indexMap = ExcelFieldUtil.getCellTitleIndex(sheet, config.getBoardFilelds());
 
             for (int i = 3; i <= sheet.getLastRowNum(); i++) {
@@ -73,7 +74,7 @@ public class BoardInfoReader {
         try {
             Workbook workbook = WorkbookFactory.create(inputStream);
             Sheet sheet = workbook.getSheet("动态管理");
-
+            Assert.notNull(sheet, "RU物理特性文档中没有'动态管理'这个sheet。");
             Map<String, Integer> indexMap = ExcelFieldUtil.getCellTitleIndex(sheet, config.getRuFilelds());
 
             for (int i = 3; i <= sheet.getLastRowNum(); i++) {
