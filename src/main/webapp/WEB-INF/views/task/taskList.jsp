@@ -7,7 +7,7 @@
     <head>
         <title>任务管理</title>
 
-        <link href="<c:url value="/static/bootstrap/3.3.0/css/bootstrap.min.css" />" type="text/css" rel="stylesheet" />
+        <link href="<c:url value="/static/bootstrap/3.3.1/css/bootstrap.min.css" />" type="text/css" rel="stylesheet" />
         <link href="<c:url value="/static/styles/signin.css" />" type="text/css" rel="stylesheet" />
         <link href="<c:url value="/static/styles/sticky-footer-navbar.css" />" type="text/css" rel="stylesheet">
         <script src="<c:url value="/static/jquery/jquery-1.11.1.js" />" type="text/javascript"></script>
