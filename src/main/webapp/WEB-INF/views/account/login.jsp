@@ -42,7 +42,7 @@
                 <input type="password" id="password" name="password" class="form-control required" placeholder="密码" required>
                 <div class="checkbox">
                     <label>
-                        <input type="checkbox" value="remember-me"> 记住我
+                        <input type="checkbox" id="rememberMe" name="rememberMe"> 记住我
                     </label>
                 </div>
 

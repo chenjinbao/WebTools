@@ -18,7 +18,15 @@
                 <li class="active"><a href="#">Link</a></li>
                 <li><a href="#">Link</a></li>
                 <li><a href="#">Link</a></li>
+                <shiro:hasRole name="admin">
+                    <li><a href="${ctx}/druid">Druid监控</a></li>
+                </shiro:hasRole>
             </ul>
+            <shiro:user>
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="${ctx}/logout">退出</a></li>
+                </ul>
+            </shiro:user>
         </div>
     </div>
 </nav>
