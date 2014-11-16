@@ -15,7 +15,7 @@
         </div>
         <div class="collapse navbar-collapse" id="navbar-collapse">
             <ul class="nav navbar-nav">
-                <li class="active"><a href="#">Link</a></li>
+                <li class="active"><a href="${ctx}/ddm">动态管理</a></li>
                 <li><a href="#">Link</a></li>
                 <li><a href="#">Link</a></li>
                 <shiro:hasRole name="admin">
