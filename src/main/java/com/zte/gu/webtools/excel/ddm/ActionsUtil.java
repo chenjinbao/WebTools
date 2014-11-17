@@ -1,7 +1,7 @@
-package com.zte.gu.webtools.excel;
+package com.zte.gu.webtools.excel.ddm;
 
 import com.google.common.io.Files;
-import com.zte.gu.webtools.util.ExcelConfig;
+import com.zte.gu.webtools.util.DdmExcelConfig;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.lang.reflect.InvocationTargetException;
@@ -30,7 +30,7 @@ public class ActionsUtil {
      * @throws InvocationTargetException
      * @throws IllegalAccessException
      */
-    public static Actions createActions(List<BoardInfo> boardInfos, ExcelConfig config) throws Exception {
+    public static Actions createActions(List<BoardInfo> boardInfos, DdmExcelConfig config) throws Exception {
         Map<String, String> typeFields = config.getActionFields();
 
         Actions actions = new Actions();

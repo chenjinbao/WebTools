@@ -17,10 +17,10 @@ import java.util.Map;
  *
  * @author 10115701
  */
-public class ExcelConfig {
+public class DdmExcelConfig {
 
-    public static ExcelConfig createConfig(List<DdmBoard> ddmBoards, List<DdmRru> ddmRrus, List<DdmAction> ddmActions) {
-        ExcelConfig config = new ExcelConfig();
+    public static DdmExcelConfig createConfig(List<DdmBoard> ddmBoards, List<DdmRru> ddmRrus, List<DdmAction> ddmActions) {
+        DdmExcelConfig config = new DdmExcelConfig();
         Map<String, String> boardFields = new HashMap<String, String>();
         for (DdmBoard ddmBoard : ddmBoards) {
             boardFields.put(ddmBoard.getColumnName(), ddmBoard.getFieldName());
@@ -35,11 +35,11 @@ public class ExcelConfig {
         for (DdmAction ddmAction : ddmActions) {
             actionFields.put(ddmAction.getActionType(), ddmAction.getFieldName());
         }
-        
+
         config.getBoardFilelds().putAll(boardFields);
         config.getRuFilelds().putAll(ruFields);
         config.getActionFields().putAll(actionFields);
-        
+
         return config;
     }
 
@@ -47,7 +47,7 @@ public class ExcelConfig {
     private final Map<String, String> boardFilelds = new HashMap<String, String>();
     private final Map<String, String> actionFields = new LinkedHashMap<String, String>();
 
-    private ExcelConfig() {
+    private DdmExcelConfig() {
 
     }
 

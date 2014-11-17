@@ -1,7 +1,7 @@
-package com.zte.gu.webtools.excel;
+package com.zte.gu.webtools.excel.ddm;
 
 import com.google.common.io.Files;
-import com.zte.gu.webtools.util.ExcelConfig;
+import com.zte.gu.webtools.util.DdmExcelConfig;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
@@ -24,7 +24,7 @@ public class BoardInfoWriter {
     private static final List<String> RADIOS = Arrays.asList("gsm", "umts");
     private static final String OUTPUT_FILE = "product-{0}-ddm-satisfy-boards-conf.xml";
     
-    public static File write(InputStream boardInputStream, InputStream rruInputStream, ExcelConfig config) {
+    public static File write(InputStream boardInputStream, InputStream rruInputStream, DdmExcelConfig config) {
         try {
             Map<String, BoardInfo> boardMap = BoardInfoReader.readBoardInfo(boardInputStream, config);
             Map<String, BoardInfo> rrudMap = BoardInfoReader.readRruBoardInfo(rruInputStream, config);

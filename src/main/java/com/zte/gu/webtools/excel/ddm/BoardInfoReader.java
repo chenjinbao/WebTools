@@ -1,6 +1,6 @@
-package com.zte.gu.webtools.excel;
+package com.zte.gu.webtools.excel.ddm;
 
-import com.zte.gu.webtools.util.ExcelConfig;
+import com.zte.gu.webtools.util.DdmExcelConfig;
 import com.zte.gu.webtools.util.ExcelFieldUtil;
 import java.io.InputStream;
 import java.util.LinkedHashMap;
@@ -29,7 +29,7 @@ public class BoardInfoReader {
      * @param config
      * @return
      */
-    public static Map<String, BoardInfo> readBoardInfo(InputStream inputStream, ExcelConfig config) {
+    public static Map<String, BoardInfo> readBoardInfo(InputStream inputStream, DdmExcelConfig config) {
         Map<String, BoardInfo> map = new LinkedHashMap<String, BoardInfo>();
         try {
             Workbook workbook = WorkbookFactory.create(inputStream);
@@ -69,7 +69,7 @@ public class BoardInfoReader {
      * @param config
      * @return
      */
-    public static Map<String, BoardInfo> readRruBoardInfo(InputStream inputStream, ExcelConfig config) {
+    public static Map<String, BoardInfo> readRruBoardInfo(InputStream inputStream, DdmExcelConfig config) {
         Map<String, BoardInfo> map = new LinkedHashMap<String, BoardInfo>();
         try {
             Workbook workbook = WorkbookFactory.create(inputStream);

@@ -1,4 +1,4 @@
-package com.zte.gu.webtools.excel;
+package com.zte.gu.webtools.excel.ddm;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;

@@ -1,11 +1,9 @@
-package com.zte.gu.webtools.excel;
+package com.zte.gu.webtools.excel.rfa;
 
 import com.zte.gu.webtools.util.ExcelFieldUtil;
-import java.io.File;
-import java.io.FileInputStream;
+import com.zte.gu.webtools.util.RfaExcelConfig;
 import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -23,21 +21,10 @@ import org.springside.modules.utils.Reflections;
 public class RfaInfoReader {
 
     private static final Logger LOG = LoggerFactory.getLogger(RfaInfoReader.class);
-    private static final String[][] RFA_FIELDS = new String[][]{{"boardId", "单板编号"}, {"freqScan", "干扰分析"}};
 
-    private static final Map<String, String> RFA_TITLE_TO_FIELD = new HashMap<String, String>();
-
-    static {
-        for (String[] field : RFA_FIELDS) {
-            RFA_TITLE_TO_FIELD.put(field[1], field[0]);
-        }
-    }
-
-    public static List<RfaInfo> readRruRfaInfo(File rruFile) {
+    public static List<RfaInfo> readRruRfaInfo(InputStream inputStream, RfaExcelConfig excelConfig) {
         List<RfaInfo> rrus = new ArrayList<RfaInfo>();
-        InputStream inputStream = null;
         try {
-            inputStream = new FileInputStream(rruFile);
             Workbook workbook = WorkbookFactory.create(inputStream);
             Sheet sheet = workbook.getSheet("射频分析");
             if (sheet == null) {
@@ -45,7 +32,7 @@ public class RfaInfoReader {
             }
             Assert.notNull(sheet, "RU物理特性文档中没有'射频分析'这个sheet。");
             
-            Map<String, Integer> indexMap = ExcelFieldUtil.getCellTitleIndex(sheet, RFA_TITLE_TO_FIELD);
+            Map<String, Integer> indexMap = ExcelFieldUtil.getCellTitleIndex(sheet, excelConfig.getRuFilelds());
 
             for (int i = 3; i <= sheet.getLastRowNum(); i++) {
                 Row row = sheet.getRow(i);

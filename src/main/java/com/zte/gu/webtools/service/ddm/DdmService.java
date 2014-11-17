@@ -13,8 +13,8 @@ import com.zte.gu.webtools.repository.DdmActionDao;
 import com.zte.gu.webtools.repository.DdmBoardDao;
 import com.zte.gu.webtools.repository.DdmRruDao;
 import com.zte.gu.webtools.repository.DdmVersionDao;
-import com.zte.gu.webtools.excel.BoardInfoWriter;
-import com.zte.gu.webtools.util.ExcelConfig;
+import com.zte.gu.webtools.excel.ddm.BoardInfoWriter;
+import com.zte.gu.webtools.util.DdmExcelConfig;
 import java.io.File;
 import java.io.InputStream;
 import java.util.List;
@@ -45,7 +45,7 @@ public class DdmService {
         List<DdmBoard> ddmBoards = (List<DdmBoard>) ddmBoardDao.findByVersion(sdrVer);
         List<DdmRru> ddmRrus = (List<DdmRru>) ddmRruDao.findByVersion(sdrVer);
         List<DdmAction> ddmActions = (List<DdmAction>) ddmActionDao.findByVersion(sdrVer);
-        ExcelConfig config = ExcelConfig.createConfig(ddmBoards, ddmRrus, ddmActions);
+        DdmExcelConfig config = DdmExcelConfig.createConfig(ddmBoards, ddmRrus, ddmActions);
 
         File zipFile = BoardInfoWriter.write(boardInputStream, ruInputStream, config);
         return zipFile;
