@@ -18,7 +18,7 @@
     <body>
         <div class="row">
             <div class="col-md-6 col-md-offset-3">
-                <form id="rfaForm" class="form-horizontal" method="post"  action="<c:url value="/ddm" />" enctype="multipart/form-data" role="form">
+                <form id="rfaForm" class="form-horizontal" method="post"  action="<c:url value="/rfa" />" enctype="multipart/form-data" role="form">
                     <legend>
                         <small>射频分析扫描</small>
                     </legend>
