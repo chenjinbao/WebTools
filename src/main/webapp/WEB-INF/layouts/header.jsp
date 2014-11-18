@@ -15,17 +15,17 @@
         </div>
         <div class="collapse navbar-collapse" id="navbar-collapse">
             <ul class="nav navbar-nav">
-                <li class="active"><a href="${ctx}/ddm">动态管理</a></li>
+                <li><a href="${ctx}/ddm">动态管理</a></li>
                 <li><a href="${ctx}/rfa">射频分析</a></li>
                 <li><a href="${ctx}/dtm">诊断测试</a></li>
-                    <shiro:hasRole name="admin">
+                <shiro:hasRole name="admin">
                     <li><a href="${ctx}/druid">Druid监控</a></li>
-                    </shiro:hasRole>
+                </shiro:hasRole>
             </ul>
             <shiro:user>
                 <ul class="nav navbar-nav navbar-right">
-                    <p class="navbar-text"><shiro:principal property="name"/></p>
-                    <li><a href="${ctx}/logout">退出</a></li>
+                    <p class="navbar-text">你好, <shiro:principal property="name"/></p>
+                    <li><a href="${ctx}/logout">退出登录</a></li>
                 </ul>
             </shiro:user>
         </div>
