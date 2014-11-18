@@ -10,7 +10,7 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 
 /**
  *
- * @author Johnny
+ * @author chen
  */
 public interface DdmActionDao extends PagingAndSortingRepository<DdmAction, Long> {
 

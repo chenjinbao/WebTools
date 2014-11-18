@@ -12,7 +12,7 @@ import javax.validation.constraints.Size;
 
 /**
  *
- * @author Johnny
+ * @author chen
  */
 @Entity
 @Table(name = "t_ddm_version")

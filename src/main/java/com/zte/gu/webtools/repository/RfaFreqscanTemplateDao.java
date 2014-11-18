@@ -10,7 +10,7 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 
 /**
  *
- * @author Johnny
+ * @author chen
  */
 public interface RfaFreqscanTemplateDao extends PagingAndSortingRepository<RfaFreqscanTemplate, Long> {
 

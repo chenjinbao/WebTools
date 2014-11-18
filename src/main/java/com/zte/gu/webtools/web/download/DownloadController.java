@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 /**
  *
- * @author Johnny
+ * @author chen
  */
 @Controller
 @RequestMapping(value = "/download")
