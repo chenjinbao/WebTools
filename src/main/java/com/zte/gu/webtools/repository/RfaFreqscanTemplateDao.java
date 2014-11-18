@@ -5,14 +5,14 @@
  */
 package com.zte.gu.webtools.repository;
 
-import com.zte.gu.webtools.entity.RfaAction;
+import com.zte.gu.webtools.entity.RfaFreqscanTemplate;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
 /**
  *
  * @author Johnny
  */
-public interface RfaActionDao extends PagingAndSortingRepository<RfaAction, Long> {
+public interface RfaFreqscanTemplateDao extends PagingAndSortingRepository<RfaFreqscanTemplate, Long> {
 
-    Iterable<RfaAction> findByVersion(String version);
+    RfaFreqscanTemplate findByVersion(String version);
 }

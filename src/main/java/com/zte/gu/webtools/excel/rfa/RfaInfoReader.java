@@ -6,6 +6,7 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import org.apache.commons.io.IOUtils;
 
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.poi.ss.usermodel.Row;
@@ -45,7 +46,7 @@ public class RfaInfoReader {
                     String field = entry.getKey();
                     int index = entry.getValue();
                     String value = ObjectUtils.toString(row.getCell(index), "0").trim();
-                    Reflections.setFieldValue(rfaInfo, field, value);
+                    Reflections.invokeSetter(rfaInfo, field, value);
                 }
 
                 rrus.add(rfaInfo);
@@ -55,13 +56,7 @@ public class RfaInfoReader {
             LOG.warn(e.getMessage(), e);
             throw new RuntimeException(e.getMessage());
         } finally {
-            if (inputStream != null) {
-                try {
-                    inputStream.close();
-                } catch (Exception e) {
-                    LOG.warn(e.getMessage(), e);
-                }
-            }
+            IOUtils.closeQuietly(inputStream);
         }
     }
 }

@@ -6,9 +6,11 @@
 package com.zte.gu.webtools.service.rfa;
 
 import com.zte.gu.webtools.entity.RfaAction;
+import com.zte.gu.webtools.entity.RfaFreqscanTemplate;
 import com.zte.gu.webtools.entity.RfaRru;
 import com.zte.gu.webtools.excel.rfa.RfaInfoWriter;
 import com.zte.gu.webtools.repository.RfaActionDao;
+import com.zte.gu.webtools.repository.RfaFreqscanTemplateDao;
 import com.zte.gu.webtools.repository.RfaRruDao;
 import com.zte.gu.webtools.util.RfaExcelConfig;
 import java.io.File;
@@ -30,11 +32,14 @@ public class RfaService {
 
     private RfaActionDao rfaActionDao;
     private RfaRruDao rfaRruDao;
+    private RfaFreqscanTemplateDao templateDao;
 
     public File exportXml(InputStream ruInputStream) {
-        List<RfaRru> rfaRrus = (List<RfaRru>) rfaRruDao.findAll();
-        List<RfaAction> rfaActions = (List<RfaAction>) rfaActionDao.findAll();
-        RfaExcelConfig config = RfaExcelConfig.createConfig(rfaRrus, rfaActions);
+        final String defaultVersion = "1";
+        List<RfaRru> rfaRrus = (List<RfaRru>) rfaRruDao.findByVersion(defaultVersion);
+        List<RfaAction> rfaActions = (List<RfaAction>) rfaActionDao.findByVersion(defaultVersion);
+        RfaFreqscanTemplate rfaFreqscanTemplate = templateDao.findByVersion(defaultVersion);
+        RfaExcelConfig config = RfaExcelConfig.createConfig(rfaRrus, rfaActions,rfaFreqscanTemplate);
         File zipFile = RfaInfoWriter.write(ruInputStream, config);
         return zipFile;
     }
@@ -47,6 +52,11 @@ public class RfaService {
     @Autowired
     public void setRfaRruDao(RfaRruDao rfaRruDao) {
         this.rfaRruDao = rfaRruDao;
+    }
+
+    @Autowired
+    public void setTemplateDao(RfaFreqscanTemplateDao templateDao) {
+        this.templateDao = templateDao;
     }
 
 }

@@ -13,5 +13,6 @@ import org.springframework.data.repository.PagingAndSortingRepository;
  * @author Johnny
  */
 public interface RfaRruDao extends PagingAndSortingRepository<RfaRru, Long> {
-    
+
+    Iterable<RfaRru> findByVersion(String version);
 }

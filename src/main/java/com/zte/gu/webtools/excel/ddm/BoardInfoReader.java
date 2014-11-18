@@ -48,7 +48,7 @@ public class BoardInfoReader {
                     String field = entry.getKey();
                     int index = entry.getValue();
                     String value = ObjectUtils.toString(row.getCell(index), "").trim();
-                    Reflections.setFieldValue(boardInfo, field, value);
+                    Reflections.invokeSetter(boardInfo, field, value);
                 }
 
                 map.put(boardInfo.getBoardName(), boardInfo);
@@ -88,7 +88,7 @@ public class BoardInfoReader {
                     String field = entry.getKey();
                     int index = entry.getValue();
                     String value = ObjectUtils.toString(row.getCell(index), "").trim();
-                    Reflections.setFieldValue(boardInfo, field, value);
+                    Reflections.invokeSetter(boardInfo, field, value);
                 }
 
                 map.put(boardInfo.getBoardName(), boardInfo);

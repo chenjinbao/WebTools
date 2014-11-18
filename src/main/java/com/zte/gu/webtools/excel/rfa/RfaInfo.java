@@ -78,7 +78,7 @@ public class RfaInfo {
     /**
      * @param vswr the vswr to set
      */
-    public void setVsvr(String vswr) {
+    public void setVswr(String vswr) {
         this.vswr = vswr;
     }
 
