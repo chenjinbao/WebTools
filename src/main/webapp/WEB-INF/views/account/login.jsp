@@ -14,6 +14,8 @@
         <meta http-equiv="Cache-Control" content="no-store" />
         <meta http-equiv="Pragma" content="no-cache" />
         <meta http-equiv="Expires" content="0" />
+        
+        <link type="image/x-icon" href="<c:url value="/static/images/favicon.ico" />" rel="shortcut icon">
 
         <link href="<c:url value="/static/bootstrap/3.3.1/css/bootstrap.min.css" />" type="text/css" rel="stylesheet" />
         <link href="<c:url value="/static/styles/signin.css" />" type="text/css" rel="stylesheet" />
