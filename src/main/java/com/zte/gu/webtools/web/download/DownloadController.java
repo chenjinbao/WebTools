@@ -25,10 +25,11 @@ public class DownloadController {
 
     @RequestMapping(method = RequestMethod.GET)
     public void download(HttpSession session, HttpServletResponse response) {
-        String filePath = (String) session.getAttribute("filePath");
+        String filePath = ( String) session.getAttribute("filePath");
+        String fileName = (String) session.getAttribute("fileName");
         if (filePath != null) {
             response.reset();
-            response.setHeader("Content-Disposition", "attachment; filename=\"ddm.zip");
+            response.setHeader("Content-Disposition", "attachment; filename=" + fileName);
             response.setContentType("application/octet-stream; charset=UTF-8");
             InputStream in = null;
             try {
@@ -39,6 +40,7 @@ public class DownloadController {
             } finally {
                 IOUtils.closeQuietly(in);
                 session.removeAttribute("filePath");
+                session.removeAttribute("fileName");
             }
         }
     }

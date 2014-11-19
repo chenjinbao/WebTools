@@ -56,6 +56,7 @@ public class RfaController {
             File tempZipFile = rfaService.exportXml(ruInput);  //将输出流传递到方法
             if (tempZipFile != null) {
                 session.setAttribute("filePath", tempZipFile.getPath());
+                session.setAttribute("fileName", "rfa.zip");
                 modelAndView.setViewName("redirect:/download");
             }
         } catch (Exception e) {

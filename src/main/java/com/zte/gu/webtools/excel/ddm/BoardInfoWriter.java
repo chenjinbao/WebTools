@@ -102,7 +102,7 @@ public class BoardInfoWriter {
         ZipOutputStream zipOutputStream = null;
         InputStream in = null;
         try {
-            File tempFile = File.createTempFile("ddm", ".zip", Files.createTempDir());
+            File tempFile = File.createTempFile("ddm_", ".zip", Files.createTempDir());
             zipOutputStream = new ZipOutputStream(tempFile);
             for (File xmlFile : xmlFiles) {
                 try {

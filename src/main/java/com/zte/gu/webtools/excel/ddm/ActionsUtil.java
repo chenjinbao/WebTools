@@ -11,10 +11,10 @@ import java.util.Map;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Marshaller;
 
-import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springside.modules.utils.Reflections;
 
 public class ActionsUtil {
 
@@ -40,7 +40,7 @@ public class ActionsUtil {
             action.setType(entry.getKey());
             actions.getActions().add(action);
             for (BoardInfo boardInfo : boardInfos) {
-                String value = BeanUtils.getProperty(boardInfo, entry.getValue());
+                String value = (String) Reflections.invokeGetter(boardInfo, entry.getValue());
                 if (value != null && !value.trim().isEmpty() && value.trim().contains("1")) {
                     Board board = new Board();
                     board.setType(boardInfo.getBoardName());

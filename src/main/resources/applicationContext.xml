@@ -57,7 +57,7 @@
     
     <!-- druid监控 -->
     <bean id="druid-stat-interceptor"
-            class="com.alibaba.druid.support.spring.stat.DruidStatInterceptor">
+          class="com.alibaba.druid.support.spring.stat.DruidStatInterceptor">
     </bean>
     <bean id="druid-type-proxyCreator" class="com.alibaba.druid.support.spring.stat.BeanTypeAutoProxyCreator">
         <!-- 所有ABCInterface的派生类被拦截监控  -->
@@ -74,11 +74,18 @@
         <context:property-placeholder ignore-unresolvable="true"
                                       location="classpath*:/application.properties" />	
 		
+        <bean id="log-filter" class="com.alibaba.druid.filter.logging.Log4jFilter">
+            <property name="statementExecutableSqlLogEnable" value="true" />
+        </bean>
+        
         <!-- 数据源配置, 使用Druid连接池 -->
         <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close"> 
             <property name="defaultAutoCommit" value="false" />
             <!-- Connection Info -->
-            <!--<property name="driverClassName" value="${jdbc.driver}" />-->
+            
+            <!-- 这一项可配可不配，如果不配置druid会根据url自动识别dbType，然后选择相应的driverClassName -->
+            <property name="driverClassName" value="${jdbc.driver}" />
+            
             <property name="url" value="${jdbc.url}" />
             <property name="username" value="${jdbc.username}" />
             <property name="password" value="${jdbc.password}" />
@@ -107,7 +114,7 @@
             <property name="maxPoolPreparedStatementPerConnectionSize" value="20" />
 
             <!-- 配置监控统计拦截的filters -->
-            <property name="filters" value="stat" />
+            <property name="filters" value="stat,wall" />            
         </bean>
 		
         <!-- 数据源配置,使用应用服务器的数据库连接池 -->

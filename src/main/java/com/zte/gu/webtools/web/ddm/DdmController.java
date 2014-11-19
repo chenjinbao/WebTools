@@ -69,6 +69,7 @@ public class DdmController {
             File tempZipFile = ddmService.exportXml(boardInput, ruInput, sdrVer);  //将输出流传递到方法
             if (tempZipFile != null) {
                 session.setAttribute("filePath", tempZipFile.getPath());
+                session.setAttribute("fileName", "ddm.zip");
                 modelAndView.setViewName("redirect:/download");
             }
         } catch (Exception e) {
