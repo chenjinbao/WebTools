@@ -114,6 +114,7 @@
             <groupId>${jdbc.driver.groupId}</groupId>
             <artifactId>${jdbc.driver.artifactId}</artifactId>
             <version>${jdbc.driver.version}</version>
+            <scope>runtime</scope>
         </dependency>
         <!-- PERSISTENCE end -->
 
