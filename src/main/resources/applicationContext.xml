@@ -72,12 +72,7 @@
     <!-- production环境 -->
     <beans profile="production">
         <context:property-placeholder ignore-unresolvable="true"
-                                      location="classpath*:/application.properties" />	
-		
-        <bean id="log-filter" class="com.alibaba.druid.filter.logging.Log4jFilter">
-            <property name="statementExecutableSqlLogEnable" value="true" />
-        </bean>
-        
+                                      location="classpath*:/application.properties" />        
         <!-- 数据源配置, 使用Druid连接池 -->
         <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close"> 
             <property name="defaultAutoCommit" value="false" />
