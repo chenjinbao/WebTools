@@ -96,7 +96,7 @@ public class RfaInfoWriter {
             File file = new File(tempDir.getPath() + File.separator + "EDMS_SPM_" + language + ".xml");
             OutputFormat format = OutputFormat.createPrettyPrint();
             format.setEncoding("UTF-8");
-            writer = new XMLWriter(new OutputStreamWriter(new FileOutputStream(file), "GBK"), format);
+            writer = new XMLWriter(new OutputStreamWriter(new FileOutputStream(file), "UTF-8"), format);
             writer.write(document);
             return file;
         } finally {
